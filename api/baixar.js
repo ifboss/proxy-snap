@@ -6,14 +6,14 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch(`https://api.cobalt.tools/api/json?url=${encodeURIComponent(url)}`, {
+    const response = await fetch(`https://api.savett.cc/api/tiktok?url=${encodeURIComponent(url)}`, {
       headers: {
         'User-Agent': 'Mozilla/5.0',
       },
     });
 
     if (!response.ok) {
-      return res.status(500).json({ status: "error", message: "Erro ao acessar API do Cobalt" });
+      return res.status(500).json({ status: "error", message: "Erro ao acessar API do SaveTT" });
     }
 
     const data = await response.json();
