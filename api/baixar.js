@@ -6,18 +6,24 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch(`https://api.savett.cc/api/tiktok?url=${encodeURIComponent(url)}`, {
+    const formData = new URLSearchParams();
+    formData.append("url", url);
+
+    const response = await fetch("https://snapsave.app/action.php", {
+      method: "POST",
       headers: {
-        'User-Agent': 'Mozilla/5.0',
+        "Content-Type": "application/x-www-form-urlencoded",
+        "User-Agent": "Mozilla/5.0"
       },
+      body: formData.toString()
     });
 
     if (!response.ok) {
-      return res.status(500).json({ status: "error", message: "Erro ao acessar API do SaveTT" });
+      return res.status(500).json({ status: "error", message: "Erro ao acessar SnapSave" });
     }
 
-    const data = await response.json();
-    return res.status(200).json(data);
+    const html = await response.text();
+    return res.status(200).send(html);
   } catch (error) {
     return res.status(500).json({ status: "error", message: "Erro interno", details: error.message });
   }
